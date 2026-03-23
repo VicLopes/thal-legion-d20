@@ -4,19 +4,32 @@ import { BasicInfo } from "./steps/BasicInfo"
 import { ClassPreset } from "./steps/ClassPreset"
 import { Stats } from "./steps/Stats"
 import { Abilities } from "./steps/Abilities"
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { CharacterCreationSidebar } from "./CharacterCreationSidebar"
 
-const STEPS = ['basic', 'class', 'stats', 'abilities']
+const STEPS = [
+    { key: 'basic', label: 'Basic Info' },
+    { key: 'class', label: 'Class' },
+    { key: 'stats', label: 'Stats' },
+    { key: 'abilities', label: 'Abilities' },
+]
 
 export function CharacterCreation() {
     const [step, setStep] = useState(0)
-    const [sheet, dispatch] = useReducer(characterReducer, {})
+    const [_sheet, dispatch] = useReducer(characterReducer, {})
 
-    const next = () => setStep(s => s+1)
+    const next = () => setStep(s => s + 1)
 
-    return(<>
-        {STEPS[step] === 'basic' && <BasicInfo onNext={(data) => { dispatch({ type: 'SET_BASIC_INFO', payload: data }); next() }} />}
-        {STEPS[step] === 'class' && <ClassPreset onNext={(data) => { dispatch({ type: 'SET_BASIC_INFO', payload: data }); next() }} />}
-        {STEPS[step] === 'stats' && <Stats onNext={(data) => { dispatch({ type: 'SET_BASIC_INFO', payload: data }); next() }} />}
-        {STEPS[step] === 'abilities' && <Abilities onNext={(data) => { dispatch({ type: 'SET_BASIC_INFO', payload: data }); next() }} />}
-    </>)
+    return (
+        <SidebarProvider>
+            <CharacterCreationSidebar step={step} />
+
+            <SidebarInset className="flex items-center justify-center p-8">
+                {STEPS[step].key === 'basic' && <BasicInfo onNext={(data) => { dispatch({ type: 'SET_BASIC_INFO', payload: data }); next() }} />}
+                {STEPS[step].key === 'class' && <ClassPreset onNext={(data) => { dispatch({ type: 'SET_BASIC_INFO', payload: data }); next() }} />}
+                {STEPS[step].key === 'stats' && <Stats onNext={(data) => { dispatch({ type: 'SET_BASIC_INFO', payload: data }); next() }} />}
+                {STEPS[step].key === 'abilities' && <Abilities onNext={(data) => { dispatch({ type: 'SET_BASIC_INFO', payload: data }); next() }} />}
+            </SidebarInset>
+        </SidebarProvider>
+    )
 }
