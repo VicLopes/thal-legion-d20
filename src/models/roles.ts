@@ -45,7 +45,7 @@ export const Ranger: Role = {
     roleName: 'Ranger',
     roleBonus: {
         envRolls: 2,
-        bonus: ['+1 to Combat Rolls.']
+        combatRolls: 1
     }
 }
 
