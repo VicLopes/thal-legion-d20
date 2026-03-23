@@ -1,9 +1,9 @@
 import type { CharacterSheet } from "../../../models/character.interface"
 
-interface StatsProps {
+interface AbilitiesProps {
     onNext: (data: Pick<CharacterSheet, 'name' | 'race'>) => void
 }
 
-export function Stats(_props: StatsProps) {
-    return (<div><p>Stats works!</p></div>)
+export function Abilities(_props: AbilitiesProps) {
+    return (<div><p>Abilities works!</p></div>)
 }

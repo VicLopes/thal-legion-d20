@@ -1,9 +1,9 @@
 import type { CharacterSheet } from "../../../models/character.interface"
 
-interface StatsProps {
+interface ClassPresetProps {
     onNext: (data: Pick<CharacterSheet, 'name' | 'race'>) => void
 }
 
-export function Stats(_props: StatsProps) {
-    return (<div><p>Stats works!</p></div>)
+export function ClassPreset(_props: ClassPresetProps) {
+    return (<div><p>Class Preset works!</p></div>)
 }

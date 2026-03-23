@@ -1,4 +1,4 @@
-export type CharacterSheet = {
+export interface CharacterSheet {
     name: string;
     race: string;
     class: Class;
@@ -12,22 +12,22 @@ export type CharacterSheet = {
     abilities: Ability[]
 }
 
-export type Equipment = {
+export interface Equipment {
     rarity: 'Legendary' | 'Rare' | 'Uncommon' | 'Common',
     name: string
 }
 
-export type Consumable = {
+export interface Consumable {
     name: string;
     effect: string;
 }
 
-export type Ability = {
+export interface Ability {
     name: string;
     abilityBonus: Partial<CharProperties>
 }
 
-type Stats = {
+interface Stats {
     stamina: number;
     combat: number;
     pockets: number;
@@ -42,12 +42,12 @@ export interface Class {
     role: Role
 }
 
-export type Role = {
+export interface Role {
     roleName: string;
     roleBonus: Partial<CharProperties>
 }
 
-export type CharProperties = {
+export interface CharProperties {
     dmgTaken: number;
     dmgDone: number;
     healingDone: number;
