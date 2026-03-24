@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field";
 import type { Stats, CharacterSheet } from "../../../models/character.interface";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const TOTAL_POINTS = 5
 
@@ -13,6 +14,16 @@ const STAT_LABELS: Record<keyof Stats, string> = {
     healer: 'Healer',
     stealth: 'Stealth',
     highRoller: 'High Roller',
+}
+
+const STAT_TOOLTIPS: Record<keyof Stats, string> = {
+    stamina:    '+2 HP per point.',
+    combat:     '+1 Damage Done per point.',
+    pockets:    '+1 Inventory Slot per point.',
+    reflexes:   '+1 to Environmental Rolls per point.',
+    healer:     '+1 Healing Done per point.',
+    stealth:    '+1 to Stealth Rolls per point.',
+    highRoller: 'Rolls above 20 increase outgoing DMG/Healing by +1 per point.',
 }
 
 const STAT_KEYS = Object.keys(STAT_LABELS) as (keyof Stats)[]
@@ -54,9 +65,15 @@ export function Stats(props: StatsProps) {
             </p>
 
             <FieldGroup>
+                <TooltipProvider>
                 {STAT_KEYS.map(key => (
                     <div key={key} className="flex items-center justify-between gap-4">
-                        <span className="w-28 text-sm">{STAT_LABELS[key]}</span>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <span className="cursor-default text-sm underline decoration-dotted">{STAT_LABELS[key]}</span>
+                            </TooltipTrigger>
+                            <TooltipContent>{STAT_TOOLTIPS[key]}</TooltipContent>
+                        </Tooltip>
                         <div className="flex items-center gap-3">
                             <Button
                                 type="button"
@@ -80,6 +97,7 @@ export function Stats(props: StatsProps) {
                         </div>
                     </div>
                 ))}
+                </TooltipProvider>
             </FieldGroup>
 
             <FieldGroup>

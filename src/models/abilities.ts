@@ -34,7 +34,6 @@ export const Precision: Ability = {
 export const ImprovedIntervene: Ability = {
     name: 'Improved Intervene',
     abilityBonus: {
-        dmgTaken: -1,
         bonus: ['Take Half-DMG when intervening for an ally. Roll 18+ negates all DMG. (Passive)']
     }
 };
@@ -74,7 +73,8 @@ export const Mounted: Ability = {
         hp: 3,
         dmgDone: 2,
         healingDone: 2,
-        envRolls: -3
+        envRolls: -3,
+        bonus: ['All bonuses apply only while mounted.']
     }
 };
 

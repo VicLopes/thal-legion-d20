@@ -1,7 +1,35 @@
 import { useState } from "react"
-import type { Ability, CharacterSheet } from "../../../models/character.interface"
+import type { Ability, CharacterSheet, CharProperties } from "../../../models/character.interface"
 import { FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field"
 import { Button } from "@/components/ui/button"
+
+const BONUS_LABELS: Partial<Record<keyof CharProperties, string>> = {
+    hp:          'HP',
+    dmgDone:     'Damage Done',
+    dmgTaken:    'Damage Taken',
+    healingDone: 'Healing Done',
+    invSlots:    'Inventory Slots',
+    combatRolls: 'Combat Rolls',
+    envRolls:    'Environment Rolls',
+    stealth:     'Stealth',
+}
+
+function AbilityNumericBonuses({ bonus }: { bonus: Partial<CharProperties> }) {
+    const entries = (Object.keys(BONUS_LABELS) as (keyof CharProperties)[])
+        .filter(k => bonus[k] !== undefined)
+        .map(k => ({ key: k, val: bonus[k] as number }))
+
+    if (entries.length === 0) return null
+    return (
+        <>
+            {entries.map(({ key, val }) => (
+                <p key={key} className="mt-0.5 text-xs text-muted-foreground">
+                    {BONUS_LABELS[key]}: <span className="font-medium">{val > 0 ? `+${val}` : val}</span>
+                </p>
+            ))}
+        </>
+    )
+}
 import {
     Agile, AnkleBite, Assassination, BloodyInfusion, BrutalStrikes,
     Counter, CripplingDefense, DesperateMeasures, EternalCharge,
@@ -72,6 +100,7 @@ export function Abilities(props: AbilitiesProps) {
                                 }`}
                             >
                                 <p className="text-sm font-medium">{ability.name}</p>
+                                <AbilityNumericBonuses bonus={ability.abilityBonus} />
                                 {ability.abilityBonus.bonus?.map((b, i) => (
                                     <p key={i} className="mt-0.5 text-xs text-muted-foreground">{b}</p>
                                 ))}
