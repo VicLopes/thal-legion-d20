@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+# Thal'dorei Legion — D20 Character Sheet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web app for creating and viewing D20 character sheets for the Thal'dorei Legion RP community.
 
-Currently, two official plugins are available:
+**[Open the app](https://viclopes.github.io/thal-legion-d20/)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## What it does
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Walk through a guided character creation flow and generate a ready-to-use character sheet:
 
-## Expanding the ESLint configuration
+1. **Basic Info** — Name and race (Sin'dorei, Ren'dorei, Draenei, etc.)
+2. **Class** — A custom class name paired with one of the available roles
+3. **Stats** — Distribute points across Stamina, Combat Proficiency, Swift Reflexes, and more
+4. **Abilities** — Pick abilities that grant character property bonuses
+5. **Review** — Confirm and generate your character sheet
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Roles
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Each class is built on one of eight roles, each with its own stat bonuses:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Role | Bonus |
+|---|---|
+| Bulwark | +3 HP, -1 Damage Taken |
+| Sentinel | -1 Damage Taken, +2 to roll when intervening |
+| Healer | +1 Environment Rolls, +2 to roll result when healing |
+| Pack Rat | Use two consumables at a time; get a free copy when purchasing |
+| Duelist | +1 HP, +1 Damage Done, +1 Environment Rolls |
+| Ranger | +2 Environment Rolls, +1 Combat Rolls |
+| Magus | +2 Damage Done, +1 Damage Taken, -1 Environment Rolls |
+| Rogue | +3 Damage Done, +2 Damage Taken, +2 Environment Rolls |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Tech stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Deployed via GitHub Pages
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Local development
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
