@@ -2,12 +2,15 @@ import { useParams } from 'react-router-dom'
 import { useCharacters } from '../../hooks/useCharacters'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { STAT_KEYS, STAT_LABELS, CHAR_PROPERTY_KEYS, CHAR_PROPERTY_LABELS } from '../character-creation/constants'
+import { Button } from '@/components/ui/button'
+import { useState } from 'react'
 
 function formatVal(val: number) {
   return val > 0 ? `+${val}` : `${val}`
 }
 
 export function CharacterDetails() {
+  const [pendingChanges, setPendingChanges] = useState(false)
   const { id } = useParams<{ id: string }>()
   const { characters } = useCharacters()
   const character = characters.find(c => c.id === id)
@@ -20,11 +23,16 @@ export function CharacterDetails() {
 
   return (
     <div className="flex flex-col items-center p-6 gap-4">
-      <div className="w-full max-w-lg">
-        <h2 className="text-xl font-bold">{sheet.name}</h2>
-        <p className="text-sm text-muted-foreground">
-          {sheet.race} &mdash; {sheet.class?.name} ({sheet.class?.role?.roleName})
-        </p>
+      <div className="w-full max-w-lg justify-between flex-row flex">
+        <div>
+          <h2 className="text-xl font-bold">{sheet.name}</h2>
+          <p className="text-sm text-muted-foreground">
+            {sheet.race} &mdash; {sheet.class?.name} ({sheet.class?.role?.roleName})
+          </p>
+        </div>
+        <Button onClick={() => console.log('save changes')} disabled={!pendingChanges}>
+          Save Changes
+        </Button>
       </div>
 
       <Tabs defaultValue="details" className="w-full max-w-lg">
@@ -97,17 +105,15 @@ export function CharacterDetails() {
               <span className="text-sm font-medium">Gold</span>
               <span className="text-lg font-bold">{sheet.gold ?? 0}</span>
             </div>
-            {sheet.signet && (
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium">Signet Ring</span>
-                <span className="text-sm">✓</span>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              <input type="checkbox" readOnly checked={sheet.signet ?? false} className="pointer-events-none" />
+              <span className="text-sm font-medium">Signet Ring</span>
+            </div>
           </section>
 
-          {(sheet.equipments?.length ?? 0) > 0 && (
-            <section className="space-y-1">
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Equipment</p>
+          <section className="space-y-1">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Equipment</p>
+            {(sheet.equipments?.length ?? 0) > 0 ? (
               <ul className="space-y-1">
                 {sheet.equipments!.map((e, i) => (
                   <li key={i} className="flex justify-between text-sm">
@@ -116,12 +122,14 @@ export function CharacterDetails() {
                   </li>
                 ))}
               </ul>
-            </section>
-          )}
+            ) : (
+              <p className="text-sm text-muted-foreground">No Equipment added.</p>
+            )}
+          </section>
 
-          {(sheet.consumables?.length ?? 0) > 0 && (
-            <section className="space-y-1">
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Consumables</p>
+          <section className="space-y-1">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Consumables</p>
+            {(sheet.consumables?.length ?? 0) > 0 ? (
               <ul className="space-y-2">
                 {sheet.consumables!.map((c, i) => (
                   <li key={i}>
@@ -130,8 +138,10 @@ export function CharacterDetails() {
                   </li>
                 ))}
               </ul>
-            </section>
-          )}
+            ) : (
+              <p className="text-sm text-muted-foreground">No Consumables added.</p>
+            )}
+          </section>
         </TabsContent>
 
         {/* NOTES TAB */}
