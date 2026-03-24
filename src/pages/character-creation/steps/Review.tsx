@@ -6,8 +6,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { buildSheet } from "../buildSheet"
 import type { PartialSheet } from "../reducer"
 import { STAT_LABELS, STAT_KEYS, CHAR_PROPERTY_LABELS, CHAR_PROPERTY_KEYS } from "../constants"
-
-const LS_KEY = 'thal-legion-character'
+import { useCharacters } from "@/hooks/useCharacters"
 
 interface ReviewProps {
     sheet: PartialSheet
@@ -60,15 +59,16 @@ export function Review(props: ReviewProps) {
     const { charProperties, hp } = buildSheet(props.sheet)
     const { sheet } = props
 
+    const { addCharacter } = useCharacters()
     const [modal, setModal] = useState<{ title: string; content: string } | null>(null)
     const [savedMsg, setSavedMsg] = useState(false)
 
     const openText = () => setModal({ title: 'Export as Text', content: buildTextExport(sheet, charProperties, hp) })
     const openJson = () => setModal({ title: 'Export as JSON', content: JSON.stringify({ sheet, charProperties, hp }, null, 2) })
     const saveLocal = () => {
-        localStorage.setItem(LS_KEY, JSON.stringify({ sheet, charProperties, hp }))
+        addCharacter({ sheet, charProperties, hp })
         setSavedMsg(true)
-        setTimeout(() => setSavedMsg(false), 2500)
+        setTimeout(() => { setSavedMsg(false); props.onFinish() }, 1500)
     }
 
     return (
