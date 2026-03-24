@@ -2,7 +2,19 @@ import { FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field"
 import { Button } from "@/components/ui/button"
 import { buildSheet } from "../buildSheet"
 import type { PartialSheet } from "../reducer"
-import type { CharProperties } from "../../../models/character.interface"
+import type { CharProperties, Stats } from "../../../models/character.interface"
+
+const STAT_LABELS: Record<keyof Stats, string> = {
+    stamina:    'Stamina',
+    combat:     'Combat Proficiency',
+    pockets:    'Extra Pockets',
+    reflexes:   'Swift Reflexes',
+    healer:     'Healer',
+    stealth:    'Stealth',
+    highRoller: 'High Roller',
+}
+
+const STAT_KEYS = Object.keys(STAT_LABELS) as (keyof Stats)[]
 
 interface ReviewProps {
     sheet: PartialSheet
@@ -46,6 +58,19 @@ export function Review(props: ReviewProps) {
                     <span className="text-sm font-medium">HP</span>
                     <span className="text-lg font-bold">{hp}</span>
                 </section>
+
+                {/* Stats */}
+                {sheet.stats && (
+                    <section className="space-y-1">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Stats</p>
+                        {STAT_KEYS.filter(k => sheet.stats![k] > 0).map(key => (
+                            <div key={key} className="flex justify-between text-sm">
+                                <span>{STAT_LABELS[key]}</span>
+                                <span className="font-medium">{sheet.stats![key]}</span>
+                            </div>
+                        ))}
+                    </section>
+                )}
 
                 {/* Properties */}
                 <section className="space-y-1">
