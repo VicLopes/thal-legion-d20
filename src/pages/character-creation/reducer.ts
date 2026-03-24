@@ -4,7 +4,7 @@ export type PartialSheet = Partial<CharacterSheet>
 
 type Action =
     | { type: 'SET_BASIC_INFO', payload: Pick<CharacterSheet, 'name' | 'race'> }
-    | { type: 'APPLY_CLASS_PRESET', payload: Pick<CharacterSheet, 'class' | 'hp'> }
+    | { type: 'APPLY_CLASS_PRESET', payload: Pick<CharacterSheet, 'class'> }
     | { type: 'SET_STATS', payload: Pick<CharacterSheet, 'stats'> }
     | { type: 'SET_ABILITIES', payload: Pick<CharacterSheet, 'abilities'> }
 

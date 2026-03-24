@@ -1,7 +1,7 @@
 import type { CharacterSheet } from "../../../models/character.interface"
 
 interface StatsProps {
-    onNext: (data: Pick<CharacterSheet, 'name' | 'race'>) => void
+    onNext: (data: Pick<CharacterSheet, 'stats'>) => void
 }
 
 export function Stats(_props: StatsProps) {
