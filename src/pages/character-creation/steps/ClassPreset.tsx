@@ -9,6 +9,35 @@ import type { Role } from "@/models/character.interface";
 
 const ROLES: Role[] = [Bulwark, Sentinel, Healer, PackRat, Duelist, Ranger, Magus, Rogue]
 
+const BONUS_LABELS: Record<string, string> = {
+    hp: 'HP',
+    dmgDone: 'Damage Done',
+    dmgTaken: 'Damage Taken',
+    healingDone: 'Healing Done',
+    invSlots: 'Inventory Slots',
+    combatRolls: 'Combat Rolls',
+    envRolls: 'Environment Rolls',
+    stealth: 'Stealth',
+}
+
+function RoleDescriptor({ role }: { role: Role }) {
+    const { bonus, ...numericBonuses } = role.roleBonus
+    const entries = Object.entries(numericBonuses) as [string, number | undefined][]
+
+    return (
+        <ul className="mt-1 space-y-0.5 text-sm text-muted-foreground">
+            {entries.map(([key, val]) => val !== undefined && (
+                <li key={key}>
+                    {BONUS_LABELS[key] ?? key}: <span className="font-medium">{val > 0 ? `+${val}` : val}</span>
+                </li>
+            ))}
+            {bonus?.map((b, i) => (
+                <li key={i}>{b}</li>
+            ))}
+        </ul>
+    )
+}
+
 interface ClassPresetProps {
     onNext: (data: Pick<CharacterSheet, 'class'>) => void
 }
@@ -48,7 +77,7 @@ export function ClassPreset(props: ClassPresetProps) {
                             ))}
                         </SelectContent>
                     </Select>
-                    <FieldDescription>The role determines your character's passive bonuses.</FieldDescription>
+                    {role && <RoleDescriptor role={role} />}
                 </Field>
             </FieldGroup>
             <FieldGroup>
