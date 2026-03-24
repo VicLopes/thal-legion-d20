@@ -38,6 +38,16 @@ export interface Stats {
     highRoller: number; // Rolls above 20 increase outgoing DMG/Healing by +1
 }
 
+export const STAT_LABELS: Record<keyof Stats, string> = {
+    stamina:    'Stamina',
+    combat:     'Combat Proficiency',
+    pockets:    'Extra Pockets',
+    reflexes:   'Swift Reflexes',
+    healer:     'Healer',
+    stealth:    'Stealth',
+    highRoller: 'High Roller',
+}
+
 export interface Class {
     name: string
     role: Role
@@ -58,4 +68,15 @@ export interface CharProperties {
     stealth: number;
     hp: number;
     bonus?: string[]
+}
+
+export const CHAR_PROPERTY_LABELS: Partial<Record<keyof CharProperties, string>> = {
+    hp:          'HP',
+    dmgDone:     'Damage Done',
+    dmgTaken:    'Damage Taken',
+    healingDone: 'Healing Done',
+    invSlots:    'Inventory Slots',
+    combatRolls: 'Combat Rolls',
+    envRolls:    'Environment Rolls',
+    stealth:     'Stealth',
 }

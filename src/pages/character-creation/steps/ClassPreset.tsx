@@ -6,19 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Bulwark, Sentinel, Healer, PackRat, Duelist, Ranger, Magus, Rogue } from "@/models/roles";
 import type { Role } from "@/models/character.interface";
+import { CHAR_PROPERTY_LABELS } from "../constants";
 
 const ROLES: Role[] = [Bulwark, Sentinel, Healer, PackRat, Duelist, Ranger, Magus, Rogue]
-
-const BONUS_LABELS: Record<string, string> = {
-    hp: 'HP',
-    dmgDone: 'Damage Done',
-    dmgTaken: 'Damage Taken',
-    healingDone: 'Healing Done',
-    invSlots: 'Inventory Slots',
-    combatRolls: 'Combat Rolls',
-    envRolls: 'Environment Rolls',
-    stealth: 'Stealth',
-}
 
 function RoleDescriptor({ role }: { role: Role }) {
     const { bonus, ...numericBonuses } = role.roleBonus
@@ -28,7 +18,7 @@ function RoleDescriptor({ role }: { role: Role }) {
         <ul className="mt-1 space-y-0.5 text-sm text-muted-foreground">
             {entries.map(([key, val]) => val !== undefined && (
                 <li key={key}>
-                    {BONUS_LABELS[key] ?? key}: <span className="font-medium">{val > 0 ? `+${val}` : val}</span>
+                    {CHAR_PROPERTY_LABELS[key as keyof typeof CHAR_PROPERTY_LABELS] ?? key}: <span className="font-medium">{val > 0 ? `+${val}` : val}</span>
                 </li>
             ))}
             {bonus?.map((b, i) => (

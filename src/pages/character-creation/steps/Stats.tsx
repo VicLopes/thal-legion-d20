@@ -3,18 +3,9 @@ import { FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field";
 import type { Stats, CharacterSheet } from "../../../models/character.interface";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { STAT_LABELS, STAT_KEYS } from "../constants";
 
 const TOTAL_POINTS = 5
-
-const STAT_LABELS: Record<keyof Stats, string> = {
-    stamina: 'Stamina',
-    combat: 'Combat Proficiency',
-    pockets: 'Extra Pockets',
-    reflexes: 'Swift Reflexes',
-    healer: 'Healer',
-    stealth: 'Stealth',
-    highRoller: 'High Roller',
-}
 
 const STAT_TOOLTIPS: Record<keyof Stats, string> = {
     stamina:    '+2 HP per point.',
@@ -25,8 +16,6 @@ const STAT_TOOLTIPS: Record<keyof Stats, string> = {
     stealth:    '+1 to Stealth Rolls per point.',
     highRoller: 'Rolls above 20 increase outgoing DMG/Healing by +1 per point.',
 }
-
-const STAT_KEYS = Object.keys(STAT_LABELS) as (keyof Stats)[]
 
 interface StatsProps {
     onNext: (data: Pick<CharacterSheet, 'stats'>) => void

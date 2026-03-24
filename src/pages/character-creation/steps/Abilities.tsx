@@ -2,20 +2,10 @@ import { useState } from "react"
 import type { Ability, CharacterSheet, CharProperties } from "../../../models/character.interface"
 import { FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field"
 import { Button } from "@/components/ui/button"
-
-const BONUS_LABELS: Partial<Record<keyof CharProperties, string>> = {
-    hp:          'HP',
-    dmgDone:     'Damage Done',
-    dmgTaken:    'Damage Taken',
-    healingDone: 'Healing Done',
-    invSlots:    'Inventory Slots',
-    combatRolls: 'Combat Rolls',
-    envRolls:    'Environment Rolls',
-    stealth:     'Stealth',
-}
+import { CHAR_PROPERTY_LABELS, CHAR_PROPERTY_KEYS } from "../constants"
 
 function AbilityNumericBonuses({ bonus }: { bonus: Partial<CharProperties> }) {
-    const entries = (Object.keys(BONUS_LABELS) as (keyof CharProperties)[])
+    const entries = CHAR_PROPERTY_KEYS
         .filter(k => bonus[k] !== undefined)
         .map(k => ({ key: k, val: bonus[k] as number }))
 
@@ -24,7 +14,7 @@ function AbilityNumericBonuses({ bonus }: { bonus: Partial<CharProperties> }) {
         <>
             {entries.map(({ key, val }) => (
                 <p key={key} className="mt-0.5 text-xs text-muted-foreground">
-                    {BONUS_LABELS[key]}: <span className="font-medium">{val > 0 ? `+${val}` : val}</span>
+                    {CHAR_PROPERTY_LABELS[key]}: <span className="font-medium">{val > 0 ? `+${val}` : val}</span>
                 </p>
             ))}
         </>

@@ -10,14 +10,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { useNavigate } from "react-router-dom"
-
-const STEPS = [
-    { key: 'basic',     label: 'Basic Info' },
-    { key: 'class',     label: 'Class' },
-    { key: 'stats',     label: 'Stats' },
-    { key: 'abilities', label: 'Abilities' },
-    { key: 'review',    label: 'Review' },
-]
+import { STEPS } from "./constants"
 
 interface CharacterCreationSidebarProps {
     step: number

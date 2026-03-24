@@ -2,37 +2,12 @@ import { FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field"
 import { Button } from "@/components/ui/button"
 import { buildSheet } from "../buildSheet"
 import type { PartialSheet } from "../reducer"
-import type { CharProperties, Stats } from "../../../models/character.interface"
-
-const STAT_LABELS: Record<keyof Stats, string> = {
-    stamina:    'Stamina',
-    combat:     'Combat Proficiency',
-    pockets:    'Extra Pockets',
-    reflexes:   'Swift Reflexes',
-    healer:     'Healer',
-    stealth:    'Stealth',
-    highRoller: 'High Roller',
-}
-
-const STAT_KEYS = Object.keys(STAT_LABELS) as (keyof Stats)[]
+import { STAT_LABELS, STAT_KEYS, CHAR_PROPERTY_LABELS, CHAR_PROPERTY_KEYS } from "../constants"
 
 interface ReviewProps {
     sheet: PartialSheet
     onFinish: () => void
 }
-
-const PROPERTY_LABELS: Partial<Record<keyof CharProperties, string>> = {
-    hp:          'HP Bonus',
-    dmgDone:     'Damage Done',
-    dmgTaken:    'Damage Taken',
-    healingDone: 'Healing Done',
-    invSlots:    'Inventory Slots',
-    combatRolls: 'Combat Rolls',
-    envRolls:    'Environment Rolls',
-    stealth:     'Stealth',
-}
-
-const PROPERTY_KEYS = Object.keys(PROPERTY_LABELS) as (keyof typeof PROPERTY_LABELS)[]
 
 function formatVal(val: number) {
     return val > 0 ? `+${val}` : `${val}`
@@ -75,12 +50,12 @@ export function Review(props: ReviewProps) {
                 {/* Properties */}
                 <section className="space-y-1">
                     <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Properties</p>
-                    {PROPERTY_KEYS.map(key => {
+                    {CHAR_PROPERTY_KEYS.map(key => {
                         const val = charProperties[key] as number
                         if (val === 0) return null
                         return (
                             <div key={key} className="flex justify-between text-sm">
-                                <span>{PROPERTY_LABELS[key]}</span>
+                                <span>{CHAR_PROPERTY_LABELS[key]}</span>
                                 <span className="font-medium">{formatVal(val)}</span>
                             </div>
                         )
