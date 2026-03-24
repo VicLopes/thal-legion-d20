@@ -15,7 +15,15 @@ export interface CharacterSheet {
 
 export interface Equipment {
     rarity: 'Legendary' | 'Rare' | 'Uncommon' | 'Common',
-    name: string
+    /**
+     * The equipment rarity determines its bonuses
+     * Legendary: +2 to chosenStat, +2 hp
+     * Rare: +1 to chosenStat, +2 hp
+     * Uncommon: +1 to chosenStat, +1 hp
+     * Common: +0 to chosenStat, +1 hp
+     * */ 
+    name: string,
+    chosenStat: keyof Stats
 }
 
 export interface Consumable {
