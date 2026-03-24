@@ -18,7 +18,14 @@ function load(): StoredCharacter[] {
   }
 }
 
-export function useCharacters() {
+interface UseCharactersReturn {
+  characters: StoredCharacter[]
+  addCharacter: (entry: Omit<StoredCharacter, 'id'>) => void
+  removeCharacter: (id: string) => void
+  updateCharacter: (id: string, sheet: Partial<CharacterSheet>) => void
+}
+
+export function useCharacters(): UseCharactersReturn {
   const [characters, setCharacters] = useState<StoredCharacter[]>(load)
 
   function addCharacter(entry: Omit<StoredCharacter, 'id'>) {
@@ -33,5 +40,11 @@ export function useCharacters() {
     setCharacters(updated)
   }
 
-  return { characters, addCharacter, removeCharacter }
+  function updateCharacter(id: string, sheet: Partial<CharacterSheet>) {
+    const updated = characters.map(c => c.id === id ? { ...c, sheet } : c)
+    localStorage.setItem(LS_KEY, JSON.stringify(updated))
+    setCharacters(updated)
+  }
+
+  return { characters, addCharacter, removeCharacter, updateCharacter }
 }
