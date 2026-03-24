@@ -27,14 +27,14 @@ export interface Ability {
     abilityBonus: Partial<CharProperties>
 }
 
-interface Stats {
-    stamina: number;
-    combat: number;
-    pockets: number;
-    reflexes: number;
-    healer: number;
-    stealth: number;
-    highRoller: number;
+export interface Stats {
+    stamina: number; // +2 to HP
+    combat: number; // +1 Dmg Done
+    pockets: number; // +1 to Inventory Slots
+    reflexes: number; // +1 Environmental Rolls
+    healer: number; // +1 to Healing Done
+    stealth: number; // +1 to Stealth Rolls
+    highRoller: number; // Rolls above 20 increase outgoing DMG/Healing by +1
 }
 
 export interface Class {
