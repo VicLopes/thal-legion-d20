@@ -3,6 +3,7 @@ export interface CharacterSheet {
     race: string;
     class: Class;
     stats: Stats;
+    charProperties: CharProperties;
     hp: number;
     bonus?: Record<string, number>;
     equipments: Equipment[];

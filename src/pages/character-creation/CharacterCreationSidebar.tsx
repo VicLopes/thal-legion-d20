@@ -12,10 +12,11 @@ import {
 import { useNavigate } from "react-router-dom"
 
 const STEPS = [
-    { key: 'basic', label: 'Basic Info' },
-    { key: 'class', label: 'Class' },
-    { key: 'stats', label: 'Stats' },
+    { key: 'basic',     label: 'Basic Info' },
+    { key: 'class',     label: 'Class' },
+    { key: 'stats',     label: 'Stats' },
     { key: 'abilities', label: 'Abilities' },
+    { key: 'review',    label: 'Review' },
 ]
 
 interface CharacterCreationSidebarProps {
