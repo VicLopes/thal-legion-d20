@@ -36,7 +36,7 @@ export function Stats(props: StatsProps) {
     const remaining = TOTAL_POINTS - spent
 
     const add = (key: keyof Stats) => {
-        if (remaining === 0) return
+        if (remaining === 0 || stats[key] === 3) return
         setStats(s => ({ ...s, [key]: s[key] + 1 }))
     }
 
@@ -78,7 +78,7 @@ export function Stats(props: StatsProps) {
                                 type="button"
                                 variant="outline"
                                 size="sm"
-                                disabled={remaining === 0}
+                                disabled={remaining === 0 || stats[key] === 3}
                                 onClick={() => add(key)}
                             >
                                 +
